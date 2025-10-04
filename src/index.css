@@ -1,0 +1,118 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Cairo:wght@400;500;600;700;800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: #f8fafc;
+  --card-background: #ffffff;
+  --primary: #f97316;
+  --primary-hover: #ea580c;
+  --primary-disabled: #fdba74;
+  --secondary: #f1f5f9;
+  --secondary-hover: #e2e8f0;
+  --danger: #dc2626;
+  --danger-hover: #b91c1c;
+  --text-heading: #1f2937;
+  --text-body: #374151;
+  --text-muted: #6b7280;
+  --border-color: #e5e7eb;
+  --input-border: #d1d5db;
+  --accent: #f97316;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  background-color: var(--background);
+  color: var(--text-body);
+}
+html[dir="rtl"] body {
+  font-family: 'Cairo', sans-serif;
+}
+
+@layer components {
+  .modal-backdrop {
+    @apply fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4;
+    animation: fadeIn 0.2s ease-out;
+  }
+  .modal-content {
+    @apply bg-card-background rounded-xl shadow-lg w-full max-w-lg p-6;
+  }
+  .modal-title {
+    @apply text-xl font-bold mb-4;
+    color: var(--text-heading); /* استخدام المتغير مباشرة */
+  }
+  .modal-actions {
+    @apply mt-6 flex justify-end gap-3;
+  }
+  
+  .label {
+    @apply block text-sm font-medium mb-1;
+    color: var(--text-body);
+  }
+  .input {
+    @apply block w-full px-3 py-2 border rounded-lg shadow-sm transition duration-200;
+    border-color: var(--input-border);
+  }
+  .input:focus {
+    @apply outline-none ring-2 border;
+    border-color: var(--primary);
+    ring-color: var(--primary) / 0.5;
+  }
+  
+  .btn-primary {
+    @apply py-2 px-5 text-white rounded-lg font-semibold border-none cursor-pointer transition-colors;
+    background-color: var(--primary);
+  }
+  .btn-primary:hover {
+    background-color: var(--primary-hover);
+  }
+  .btn-primary:disabled {
+    background-color: var(--primary-disabled);
+    @apply cursor-not-allowed;
+  }
+  
+  .btn-secondary {
+    @apply py-2 px-5 rounded-lg font-semibold border cursor-pointer transition-colors;
+    background-color: var(--secondary);
+    border-color: var(--border-color);
+    color: var(--text-body);
+  }
+  .btn-secondary:hover {
+    background-color: var(--secondary-hover);
+  }
+  
+  .btn-danger {
+    @apply py-2 px-5 text-white rounded-lg font-semibold border-none cursor-pointer transition-colors;
+    background-color: var(--danger);
+  }
+  .btn-danger:hover {
+    background-color: var(--danger-hover);
+  }
+  
+  .th {
+    @apply px-6 py-3 text-left text-xs font-medium uppercase bg-slate-50 border-b;
+    border-color: var(--border-color);
+    color: var(--text-muted);
+  }
+  html[dir="rtl"] .th {
+    @apply text-right;
+  }
+  .td {
+    @apply px-6 py-4 whitespace-nowrap text-sm border-b;
+    border-color: var(--border-color);
+    color: var(--text-body);
+  }
+  tbody tr:last-child .td {
+    @apply border-b-0;
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.greeting-fade-in {
+  animation: fadeIn 0.5s ease-out forwards;
+}
