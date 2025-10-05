@@ -72,7 +72,7 @@ const Dashboard: React.FC<DashboardProps> = ({
 
       <MyTasks tasks={tasks} onUpdateStatus={onUpdateTaskStatus} isProcessing={isProcessing} />
 
-      <ProactiveAiInsightCard fullData={fullData} />
+      {/* <ProactiveAiInsightCard fullData={fullData} /> */}
       
       {dashboardPieFilter && (
         <div className="p-3 bg-orange-50 text-orange-800 rounded-lg flex justify-between items-center shadow-sm">
