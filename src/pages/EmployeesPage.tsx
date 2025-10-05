@@ -1,15 +1,14 @@
 
 import React, { useState, useMemo } from 'react';
-import AreaStoreFilter from '../components/AreaStoreFilter.js';
-import MonthYearFilter from '../components/MonthYearFilter.js';
-import { Table, Column } from '../components/Table.js';
-import { TableSkeleton } from '../components/SkeletonLoader.js';
-import { PlusIcon, PencilIcon, TrashIcon, SparklesIcon, PlusCircleIcon, ClipboardListIcon } from '../components/Icons.js';
-// FIX: Added DailyMetric, SalesTransaction, and StoreSummary to imports for stronger typing.
-import type { EmployeeSummary, Store, DateFilter, AreaStoreFilterState, FilterableData, ModalState, Employee, DailyMetric, SalesTransaction, StoreSummary, UserProfile } from '../types.js';
-import { AchievementBar } from '../components/DashboardComponents.js';
-import Employee360View from '../components/Employee360View.js';
-import { useLocale } from '../context/LocaleContext.js';
+import AreaStoreFilter from '../components/AreaStoreFilter';
+import MonthYearFilter from '../components/MonthYearFilter';
+import { Table, Column } from '../components/Table';
+import { TableSkeleton } from '../components/SkeletonLoader';
+import { PlusIcon, PencilIcon, TrashIcon, SparklesIcon, PlusCircleIcon, ClipboardListIcon } from '../components/Icons';
+import type { EmployeeSummary, Store, DateFilter, AreaStoreFilterState, FilterableData, ModalState, Employee, DailyMetric, SalesTransaction, StoreSummary, UserProfile } from '../types';
+import { AchievementBar } from '../components/DashboardComponents';
+import Employee360View from '../components/Employee360View';
+import { useLocale } from '../context/LocaleContext';
 
 interface EmployeesPageProps {
   employeeSummary: { [storeName: string]: EmployeeSummary[] };
@@ -23,8 +22,6 @@ interface EmployeesPageProps {
   onEdit: (employee: EmployeeSummary) => void;
   onDelete: (id: string, name: string) => void;
   isRecalculating: boolean;
-  // For 360 view
-  // FIX: Replaced any[] with specific types to enable type checking in child components like Employee360View.
   dailyMetrics: DailyMetric[];
   salesTransactions: SalesTransaction[];
   kingDuvetSales: SalesTransaction[];
@@ -47,10 +44,6 @@ const EmployeesPage: React.FC<EmployeesPageProps> = ({
   const allEmployeeSummaries = useMemo(() => Object.values(employeeSummary).flat(), [employeeSummary]);
 
   const filteredEmployeeSummary = useMemo(() => {
-    // FIX: Refactored to use `reduce` for better type safety and to resolve a type mismatch error.
-    // FIX: Explicitly typing the initial value of reduce to fix multiple downstream type errors.
-    // FIX: Explicitly typing the accumulator `acc` in the reduce callback. This resolves downstream errors where `employees` was of type `unknown` and ensures the hook returns the correct object type.
-    // FIX: Corrected multiple type errors by providing a typed initial value to a `reduce` function and casting `employees` to `EmployeeSummary[]`.
     return Object.entries(employeeSummary).reduce((acc, [storeName, employees]) => {
         const employeesArray = employees as EmployeeSummary[];
         if (!searchTerm) {

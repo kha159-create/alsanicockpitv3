@@ -1,15 +1,11 @@
-
-
-
-
 import React, { useState, useMemo } from 'react';
-import { SparklesIcon, ArrowLeftIcon } from '../components/Icons.js';
-import { KPICard } from '../components/DashboardComponents.js';
-import MonthYearFilter from '../components/MonthYearFilter.js';
-import type { StoreSummary, DailyMetric, ModalState, DateFilter, FilterableData, UserProfile } from '../types.js';
-import { calculateEffectiveTarget } from '../utils/calculator.js';
-import { generateText } from '../services/geminiService.js';
-import { useLocale } from '../context/LocaleContext.js';
+import { SparklesIcon, ArrowLeftIcon } from '../components/Icons';
+import { KPICard } from '../components/DashboardComponents';
+import MonthYearFilter from '../components/MonthYearFilter';
+import type { StoreSummary, DailyMetric, ModalState, DateFilter, FilterableData, UserProfile } from '../types';
+import { calculateEffectiveTarget } from '../utils/calculator';
+import { generateText } from '../services/geminiService';
+import { useLocale } from '../context/LocaleContext';
 
 interface StoreDetailPageProps {
     store: StoreSummary;
@@ -61,7 +57,7 @@ const StoreDetailPage: React.FC<StoreDetailPageProps> = ({ store, allMetrics, on
         const todayDate = now.getDate();
 
         const totalDaysInMonth = new Date(year, month + 1, 0).getDate();
-        const remainingDays = Math.max(0, totalDaysInMonth - todayDate);
+        const remainingDays = Math.max(0, totalDaysInMonth - todayDate + 1);
         
         const salesThisMonth = allMetrics.filter(m => {
             if (m.store !== store.name || !m.date || typeof m.date.toDate !== 'function') return false;
@@ -86,7 +82,7 @@ const StoreDetailPage: React.FC<StoreDetailPageProps> = ({ store, allMetrics, on
         try {
             const languageInstruction = locale === 'ar' ? 'Provide the response in Arabic.' : '';
             const prompt = `Analyze the performance for store "${store.name}". Data: ${JSON.stringify(storeData)}. Provide a brief summary, 2 strengths, 1 area for improvement, and 2 actionable steps. ${languageInstruction}`;
-            const result = await generateText(prompt, 'gemini-2.5-flash');
+            const result = await generateText({ model: 'gemini-2.5-flash', contents: [{ parts: [{ text: prompt }] }] });
             setAiAnalysis(result);
         } catch (error: any) {
             setAiAnalysis(`Error: ${error.message}`);

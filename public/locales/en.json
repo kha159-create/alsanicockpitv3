@@ -193,11 +193,11 @@
   "required_daily_avg": "Required Daily Avg:",
   "achieved": "Achieved! 🎉",
   "back_to_categories": "← Back to Categories",
-  "total_items_per_bill": "Avg. Items / Bill",
-  "contribution_to_store": "Contribution to Store",
+  "items_per_bill": "Avg. Items / Bill",
+  "contribution_to_store_sales": "Contribution to Store",
   "store_avg": "Store Avg",
   "sales_by_product_category": "Sales by Product Category",
-  "top_products_in_category": "Top 5 Products in {{category}}",
+  "top_products_in": "Top 5 Products in",
   "from": "From",
   "mark_complete": "Mark Complete",
   "my_tasks_and_alerts": "My Tasks & Alerts",
@@ -256,5 +256,6 @@
   "no_rules_saved": "No custom rules saved yet.",
   "ai_coaching_summary_title": "AI Coaching Summary",
   "ai_coaching_summary_subtitle": "Key insights from your AI coach, Hassan.",
-  "error_generating_summary": "Could not generate AI summary at this time."
+  "error_generating_summary": "Could not generate AI summary at this time.",
+  "generating_summary": "Generating summary"
 }
